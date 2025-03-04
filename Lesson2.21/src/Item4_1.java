@@ -25,6 +25,5 @@ public class Item4_1 {
 
         System.out.println("Подстрока '" + two + "' встречается " + counter + " раза");
     }
-
 }
 
