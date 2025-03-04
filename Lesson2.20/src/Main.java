@@ -21,7 +21,7 @@ public class Main {
 
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             if (entry.getValue() > 1) {
-                System.out.printf("Число '" + entry.getKey() + "' встречается " + entry.getValue() + " раза");
+                System.out.println("Число '" + entry.getKey() + "' встречается " + entry.getValue() + " раза");
             }
         }
     }
