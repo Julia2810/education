@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) throws ParseException {
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat date = new SimpleDateFormat("dd.MM.yyyy");
@@ -29,7 +30,18 @@ public class Main {
         System.out.println("Дата после сдвига на начало года: " + date.format(startOfYear));
 
         // Увеличиваем на 10 рабочих дней
-        Date datePlus10WorkingDays = addWorkingDays(date1, 10);
+        Date datePlus10WorkingDays = date1;
+        int days = 0;
+        while (days < 10) {
+            calendar.setTime(datePlus10WorkingDays);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            datePlus10WorkingDays = calendar.getTime();
+
+            if (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY &&
+                    calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                days++;
+            }
+        }
         System.out.println("Дата после увеличения на 10 рабочих дней: " + date.format(datePlus10WorkingDays));
 
         // Вводим вторую дату
@@ -38,36 +50,29 @@ public class Main {
         Date date2= date.parse(inputSecondDate);
 
         // Разница в рабочих днях между первой и второй датой
-        int workingDaysBetween = countWorkingDays(date1, date2);
+        int workingDaysBetween = 0;
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(date1);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(date2);
+
+
+        if (startDate.after(endDate)) {
+            Calendar cal = startDate;
+            startDate = endDate;
+            endDate = cal;
+        }
+
+        while (startDate.before(endDate) || startDate.equals(endDate)) {
+
+            if (startDate.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY &&
+                    startDate.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                workingDaysBetween++;
+            }
+            startDate.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
         System.out.println("Количество рабочих дней между введенными датами: " + workingDaysBetween);
-    }
-
-    public static Date addWorkingDays(Date date, int days) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        while (days > 0) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-            if (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY &&
-                    calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-                days--;
-            }
-        }
-        return calendar.getTime();
-    }
-
-    public static int countWorkingDays(Date startDate, Date endDate) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
-        int workingDays = 0;
-
-        while (calendar.getTime().before(endDate) || calendar.getTime().equals(endDate)) {
-            if (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY &&
-                    calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-                workingDays++;
-            }
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        return workingDays;
     }
 }
