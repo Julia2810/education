@@ -39,9 +39,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
 
-        System.out.print("Введите имя первого пользователя: ");
+        System.out.println("Введите имя первого пользователя");
         String name1 = scanner.nextLine();
-        System.out.print("Введите возраст первого пользователя: ");
+        System.out.println("Введите возраст первого пользователя");
         Integer age1 = scanner.nextInt();
         scanner.nextLine();
 
@@ -49,9 +49,9 @@ public class Main {
         User user1 = new User(name1, age1);
 
 
-        System.out.print("Введите имя второго пользователя: ");
+        System.out.println("Введите имя второго пользователя");
         String name2 = scanner.nextLine();
-        System.out.print("Введите возраст второго пользователя: ");
+        System.out.println("Введите возраст второго пользователя");
         Integer age2 = scanner.nextInt();
 
 
@@ -61,7 +61,7 @@ public class Main {
         if (user1.getAge() < user2.getAge()) {
             System.out.println(user1);
         } else {
-                System.out.println(user2);
+            System.out.println(user2);
         }
 
 
